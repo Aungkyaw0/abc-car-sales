@@ -24,6 +24,19 @@ class Car extends Model
         'status'
     ];
 
+    const STATUS_AVAILABLE = 'available';
+    const STATUS_SOLD = 'sold';
+
+    public function isAvailable()
+    {
+        return $this->status === self::STATUS_AVAILABLE;
+    }
+
+    public function markAsSold()
+    {
+        $this->update(['status' => self::STATUS_SOLD]);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -42,5 +55,20 @@ class Car extends Model
     public function features()
     {
         return $this->belongsToMany(Feature::class);
+    }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
+
+    public function latestBid()
+    {
+        return $this->hasOne(Bid::class)->latestOfMany();
+    }
+
+    public function highestBid()
+    {
+        return $this->hasOne(Bid::class)->ofMany('amount', 'max');
     }
 } 

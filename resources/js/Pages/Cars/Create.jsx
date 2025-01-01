@@ -3,6 +3,7 @@ import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/Layout';
 import ImageUpload from '@/Components/Cars/ImageUpload';
 import FeaturesSelection from '@/Components/Cars/FeaturesSelection';
+import Breadcrumb from '@/Components/Breadcrumb';
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -25,6 +26,11 @@ export default function Create() {
         post('/cars');
     };
 
+    const breadcrumbItems = [
+        { name: 'Cars', href: '/car/lists' },
+        { name: 'Sell Your Car' }
+    ];
+
     return (
         <>
             <Head title="Sell Your Car" />
@@ -37,6 +43,9 @@ export default function Create() {
                             <h2 className="text-3xl font-bold text-white mb-2">List Your Car for Sale</h2>
                             <p className="text-blue-100">Fill in the details below to list your car</p>
                         </div>
+
+                        <Breadcrumb items={breadcrumbItems} />
+
 
                         <div className="p-8">
                             <form onSubmit={handleSubmit} className="space-y-8">

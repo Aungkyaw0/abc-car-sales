@@ -2,6 +2,7 @@ import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/Layout';
 import { formatCurrency, formatNumber } from '@/utils/format';
+import Breadcrumb from '@/Components/Breadcrumb';
 
 export default function Index({ cars, filters, makes }) {
     const { data, setData, get, processing } = useForm({
@@ -23,6 +24,10 @@ export default function Index({ cars, filters, makes }) {
         });
     };
 
+    const breadcrumbItems = [
+        { name: 'Browse Cars' }
+    ];
+
     return (
         <>
             <Head title="Browse Cars" />
@@ -30,6 +35,7 @@ export default function Index({ cars, filters, makes }) {
             {/* Hero Section with Search */}
             <section className="relative pt-20">
                 {/* Background Image with Overlay */}
+                <Breadcrumb items={breadcrumbItems} />
                 <div className="absolute inset-0 h-[400px] bg-[url('/images/car-list-hero.png')] bg-cover bg-center">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-black/70"></div>
                 </div>
@@ -47,7 +53,7 @@ export default function Index({ cars, filters, makes }) {
                 </div>
 
                 {/* Search Filters Section */}
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10 mb-12">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10 mb-5">
                     <div className="bg-white rounded-xl shadow-xl p-6">
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <select
@@ -104,7 +110,8 @@ export default function Index({ cars, filters, makes }) {
 
                 {/* Cars Grid */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <Breadcrumb items={breadcrumbItems} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pt-2">
                         {cars.data.map((car) => (
                             <Link
                                 key={car.id}

@@ -3,18 +3,35 @@ import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/Layout';
 import { formatCurrency, formatNumber } from '@/utils/format';
 import Features from '@/Components/Cars/Features';
+import Breadcrumb from '@/Components/Breadcrumb';
+import BidSection from '@/Components/BidSection';
+import BidManagement from '@/Components/BidManagement';
+import { Toaster } from 'react-hot-toast';
+import LiveAnnouncer from '@/Components/LiveAnnouncer';
 
-export default function Show({ car, seller, similarCars }) {
+export default function Show({ car, seller, similarCars, auth }) {
     const [activeImage, setActiveImage] = useState(car.images[0]?.image_path);
 
-    return (
-        <>
-            <Head title={car.title} />
+    const breadcrumbItems = [
+        { name: 'Cars', href: '/car/lists' },
+        { name: car.title }
+    ];
 
-            <div className="py-12 pt-40">
+    const MemoizedFeatures = React.memo(Features);
+    const MemoizedBidSection = React.memo(BidSection);
+    const MemoizedBidManagement = React.memo(BidManagement);
+
+    return (
+        <AuthenticatedLayout>
+            <Toaster />
+            <Head title={car.title} />
+            <LiveAnnouncer />
+
+            <div className="py-12 pt-32">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Main Content Grid */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <Breadcrumb items={breadcrumbItems} />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 pt-2">
                         {/* Left Column - Image Gallery */}
                         <div className="space-y-4">
                             <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
@@ -52,7 +69,7 @@ export default function Show({ car, seller, similarCars }) {
                             {/* ... existing code ... */}
                             
                             {/* Features Section */}
-                            <Features features={car.features} />
+                            <MemoizedFeatures features={car.features} />
                             
                             {/* ... rest of the code ... */}
                             </div>
@@ -68,6 +85,22 @@ export default function Show({ car, seller, similarCars }) {
                                     {formatCurrency(car.price)}
                                 </p>
                             </div>
+
+                            {auth.user?.id === car.user_id && (
+                                <MemoizedBidManagement 
+                                    car={car} 
+                                    initialBids={car.bids || []}
+                                />
+                            )}
+
+                            {/* Add BidSection component */}
+                            {auth.user && auth.user.id !== car.user_id && (
+                                <MemoizedBidSection 
+                                    car={car}
+                                    currentHighestBid={car.highest_bid}
+                                    userBids={car.bids}
+                                />
+                            )}
 
                             {/* Specifications Cards */}
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -194,6 +227,6 @@ export default function Show({ car, seller, similarCars }) {
                     )}
                 </div>
             </div>
-        </>
+        </AuthenticatedLayout>
     );
 } 

@@ -19,13 +19,16 @@
     },
     "dependencies": {
         "@headlessui/react": "^2.2.0",
+        "@heroicons/react": "^2.2.0",
         "@inertiajs/react": "^2.0.0",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/forms": "^0.5.9",
         "@tailwindcss/line-clamp": "^0.4.4",
+        "date-fns": "^4.1.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-hot-toast": "^2.4.1",
+        "utils": "^0.3.1",
         "ziggy-js": "^2.4.1"
     }
 }
