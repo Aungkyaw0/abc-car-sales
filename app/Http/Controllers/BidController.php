@@ -7,11 +7,8 @@ use App\Models\Bid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Providers\AuthServiceProvider;
-use App\Policies\CarPolicy;
 use Illuminate\Support\Facades\DB;
-use App\Notifications\BidRejectedNotification;
-use App\Notifications\BidAcceptedNotification;
+
 
 class BidController extends Controller
 {

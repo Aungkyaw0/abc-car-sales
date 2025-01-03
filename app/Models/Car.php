@@ -71,4 +71,9 @@ class Car extends Model
     {
         return $this->hasOne(Bid::class)->ofMany('amount', 'max');
     }
+
+    public function acceptedBid()
+    {
+        return $this->hasOne(Bid::class)->where('status', 'accepted');
+    }
 } 

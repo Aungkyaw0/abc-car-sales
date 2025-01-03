@@ -22,7 +22,7 @@ export default function Show({ car, seller, similarCars, auth }) {
     const MemoizedBidManagement = React.memo(BidManagement);
 
     return (
-        <AuthenticatedLayout>
+        <>
             <Toaster />
             <Head title={car.title} />
             <LiveAnnouncer />
@@ -227,6 +227,6 @@ export default function Show({ car, seller, similarCars, auth }) {
                     )}
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </>
     );
 } 

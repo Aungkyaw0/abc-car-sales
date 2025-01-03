@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useForm, Link } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import NavigationBar from '@/Components/NavigationBar';
-import Footer from '@/Components/Footer';
 // import {route} from 'ziggy-js';
 
 export default function Register() {
@@ -200,7 +199,6 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }
