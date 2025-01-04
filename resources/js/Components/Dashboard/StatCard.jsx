@@ -1,35 +1,31 @@
 import React from 'react';
-import { CurrencyDollarIcon, UserGroupIcon, ChartBarIcon, TruckIcon } from '@heroicons/react/24/outline';
+import { 
+    UserGroupIcon, 
+    TruckIcon, 
+    ChartBarIcon, 
+    ShieldCheckIcon 
+} from '@heroicons/react/24/outline';
 
 const icons = {
-    currency: CurrencyDollarIcon,
     users: UserGroupIcon,
+    car: TruckIcon,
     chart: ChartBarIcon,
-    car: TruckIcon
+    shield: ShieldCheckIcon
 };
 
-export default function StatCard({ title, value, change, icon }) {
-    const Icon = icons[icon];
-    const isPositive = change >= 0;
+export default function StatCard({ title, value, icon, className = '' }) {
+    const IconComponent = icons[icon];
 
     return (
-        <div className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200">
+        <div className={`rounded-xl p-6 text-white ${className}`}>
             <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm font-medium text-gray-600">{title}</p>
-                    <p className="mt-2 text-3xl font-semibold text-gray-900">
-                        {typeof value === 'number' && icon === 'currency' ? `$${value.toLocaleString()}` : value.toLocaleString()}
-                    </p>
+                    <p className="text-sm opacity-80">{title}</p>
+                    <p className="text-3xl font-bold mt-1">{value}</p>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-lg">
-                    <Icon className="h-6 w-6 text-blue-600" />
-                </div>
-            </div>
-            <div className="mt-4">
-                <span className={`text-sm font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                    {isPositive ? '↑' : '↓'} {Math.abs(change)}%
-                </span>
-                <span className="text-sm text-gray-600 ml-2">from last month</span>
+                {IconComponent && (
+                    <IconComponent className="w-8 h-8 opacity-80" />
+                )}
             </div>
         </div>
     );

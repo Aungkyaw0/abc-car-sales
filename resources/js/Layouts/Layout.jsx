@@ -10,9 +10,8 @@ export default function Layout({ children }) {
     const { auth, flash } = usePage().props;
     const [notifications, setNotifications] = useState([]);
 
-    // Simple notification handler
     const addNotification = (notification) => {
-        setNotifications(prev => [notification, ...prev].slice(0, 5)); // Keep last 5 notifications
+        setNotifications(prev => [notification, ...prev].slice(0, 5));
     };
 
     useEffect(() => {
@@ -36,11 +35,28 @@ export default function Layout({ children }) {
         }
     }, [flash]);
 
+    const renderNavigation = () => {
+        if (!auth?.user) {
+            return <NavigationBar />;
+        }
+        if (auth.user.role === 'admin') {
+            return null;
+        }
+        return <AuthenticatedNav notifications={notifications} />;
+    };
+
+    const renderFooter = () => {
+        if (!auth?.user || auth.user.role === 'user') {
+            return <Footer />;
+        }
+        return null;
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
-            {auth?.user ? <AuthenticatedNav notifications={notifications} /> : <NavigationBar />}
+            {renderNavigation()}
             <main>{children}</main>
-            {auth?.user ? <Footer /> : <Footer />}
+            {renderFooter()}
         </div>
     );
 }

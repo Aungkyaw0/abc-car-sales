@@ -1,83 +1,28 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-} from 'chart.js';
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-);
+    BarChart,
+    XAxis,
+    YAxis,
+    Tooltip as RechartsTooltip,
+    Bar,
+    ResponsiveContainer
+} from 'recharts';
 
 export default function BidActivityChart({ data }) {
-    const chartData = {
-        labels: data.map(item => item.date),
-        datasets: [
-            {
-                label: 'Bids',
-                data: data.map(item => item.count),
-                backgroundColor: 'rgb(99, 102, 241)',
-                borderRadius: 4
-            }
-        ]
-    };
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: false
-            },
-            title: {
-                display: true,
-                text: 'Bid Activity',
-                color: '#111827',
-                font: {
-                    size: 16,
-                    weight: 'bold'
-                },
-                padding: {
-                    bottom: 20
-                }
-            }
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    color: '#6B7280'
-                }
-            },
-            y: {
-                beginAtZero: true,
-                grid: {
-                    color: '#E5E7EB'
-                },
-                ticks: {
-                    color: '#6B7280',
-                    stepSize: 1
-                }
-            }
-        }
-    };
-
     return (
-        <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="h-[300px]">
-                <Bar data={chartData} options={options} />
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Bid Activity</h2>
+            <div className="h-48 sm:h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={data}>
+                        <XAxis dataKey="date" />
+                        <YAxis />
+                        <RechartsTooltip 
+                            labelFormatter={(value) => `Bids: ${value}`}
+                        />
+                        <Bar dataKey="count" fill="#4F46E5" />
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
         </div>
     );

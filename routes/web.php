@@ -6,6 +6,10 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CarController as AdminCarController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -68,4 +72,27 @@ Route::middleware('auth')->group(function () {
     
     // Existing Bid Routes
     Route::get('/dashboard/bids', [BidController::class, 'index'])->name('dashboard.bids');
+});
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminController::class, 'loginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login']);
+    
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        
+        // Car Management
+        Route::resource('cars', AdminCarController::class)->names('admin.cars');
+        
+        // User Management
+        Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    });
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    // Existing routes...
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });

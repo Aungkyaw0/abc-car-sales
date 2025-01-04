@@ -16,18 +16,21 @@ export default function Index({ stats = {}, bidActivity = [], myListings = [], m
                     value={stats.myActiveListings || 0} 
                     change={stats.listingsChange || 0}
                     icon="car"
+                    className="bg-gradient-to-br from-blue-500 to-blue-600"
                 />
                 <StatCard 
                     title="My Total Bids" 
                     value={stats.myTotalBids || 0} 
                     change={stats.bidsChange || 0}
                     icon="chart"
+                    className="bg-gradient-to-br from-green-500 to-green-600"
                 />
                 <StatCard 
                     title="Sold Cars" 
                     value={stats.soldCars || 0} 
                     change={stats.soldCarsChange || 0}
                     icon="currency"
+                    className="bg-gradient-to-br from-yellow-500 to-yellow-600"
                 />
             </div>
 
