@@ -3,7 +3,7 @@ import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
 
 export default function Breadcrumb({ items }) {
     return (
-        <nav className="flex px-4 py-3 sm:px-6 lg:px-8 bg-white border-b">
+        <nav className="flex px-4 py-3 sm:px-6 lg:px-8 bg-white border-b my-2">
             <ol className="flex items-center space-x-2 max-w-7xl mx-auto w-full">
                 <li>
                     <Link 

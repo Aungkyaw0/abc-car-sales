@@ -42,7 +42,7 @@ export default function Index({ cars, filters, makes, models }) {
                 updatedData.model = '';
             }
 
-            if (name === 'make' || name === 'model') {
+            if (['make', 'model', 'min_price', 'max_price'].includes(name)) {
                 router.get('/car/lists', updatedData, {
                     preserveState: true,
                     preserveScroll: true,
@@ -54,8 +54,8 @@ export default function Index({ cars, filters, makes, models }) {
         });
     };
 
-    console.log(models);
-    console.log(makes);
+    // console.log(models);
+    // console.log(makes);
 
 
     const breadcrumbItems = [
@@ -77,9 +77,8 @@ export default function Index({ cars, filters, makes, models }) {
             <Head title="Browse Cars" />
 
             {/* Hero Section with Search */}
-            <section className="relative pt-20">
+            <section className="relative pt-20 pb-10">
                 {/* Background Image with Overlay */}
-                <Breadcrumb items={breadcrumbItems} />
                 <div className="absolute inset-0 h-[400px] bg-[url('/images/car-list-hero.png')] bg-cover bg-center">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-black/70"></div>
                 </div>
@@ -96,8 +95,8 @@ export default function Index({ cars, filters, makes, models }) {
                     </div>
                 </div>
 
-                {/* Search Filters Section */}
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-10 mb-5">
+                {/* Search Filters Section
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10 mb-5">
                     <div className="bg-white rounded-xl shadow-xl p-6">
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <select
@@ -152,13 +151,14 @@ export default function Index({ cars, filters, makes, models }) {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                {/* Cars Grid */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Filter and Cars Grid */}
+                <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8">
+                    
                     <div className="flex flex-col lg:flex-row gap-8">
                         {/* Filters Sidebar */}
-                        <div className="lg:w-1/4">
+                        <div className="lg:w-1/4 mt-2">
                             <div className="bg-white rounded-lg shadow-md p-6">
                                 <div className="mb-6">
                                     <div className="relative">
@@ -210,19 +210,24 @@ export default function Index({ cars, filters, makes, models }) {
                                     {/* Price Range Filter */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
-                                        <select
-                                            name="price_range"
-                                            value={data.price_range}
-                                            onChange={handleFilter}
-                                            className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                        >
-                                            <option value="">Any Price</option>
-                                            {priceRanges.map((range, index) => (
-                                                <option key={index} value={`${range.min}-${range.max}`}>
-                                                    {range.label}
-                                                </option>
-                                            ))}
-                                        </select>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="number"
+                                                name="min_price"
+                                                placeholder="Min Price"
+                                                value={data.min_price}
+                                                onChange={handleFilter}
+                                                className="w-1/2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                            />
+                                            <input
+                                                type="number"
+                                                name="max_price"
+                                                placeholder="Max Price"
+                                                value={data.max_price}
+                                                onChange={handleFilter}
+                                                className="w-1/2 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Year Range Filter */}
@@ -281,7 +286,10 @@ export default function Index({ cars, filters, makes, models }) {
 
                         {/* Cars Grid - Update the existing grid */}
                         <div className="lg:w-3/4">
+                            <Breadcrumb items={breadcrumbItems} />
+
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                                
                                 {cars.data.map((car) => (
                                     <Link
                                         key={car.id}
