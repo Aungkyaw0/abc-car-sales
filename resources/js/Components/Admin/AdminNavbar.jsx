@@ -13,14 +13,14 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
 
     return (
         <>
-        <nav className="bg-white border-b border-gray-200 fixed w-full z-40 top-0 h-16 mb-60">
+        <nav className="bg-slate-900  fixed w-full z-40 top-0 h-16">
             <div className="max-w-full h-full px-4 sm:px-6 lg:px-8">
                 <div className="flex h-full justify-between items-center">
                     {/* Left side */}
                     <div className="flex items-center">
                         <button
                             type="button"
-                            className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-400 
+                            className="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-white
                             hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 
                             focus:ring-inset focus:ring-blue-500"
                         >
@@ -33,7 +33,7 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
                                 {defaultBreadcrumbs.map((item, index) => (
                                     <li key={index} className="flex items-center">
                                         {index !== 0 && (
-                                            <svg className="h-5 w-5 flex-shrink-0 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg className="h-5 w-5 flex-shrink-0 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                                             </svg>
                                         )}
@@ -41,12 +41,12 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
                                             {item.href ? (
                                                 <Link
                                                     href={item.href}
-                                                    className="text-sm font-medium text-gray-500 hover:text-gray-700"
+                                                    className="text-sm font-medium text-white hover:text-gray-700"
                                                 >
                                                     {item.name}
                                                 </Link>
                                             ) : (
-                                                <span className="text-sm font-medium text-gray-700">
+                                                <span className="text-sm font-medium text-white">
                                                     {item.name}
                                                 </span>
                                             )}
@@ -77,7 +77,7 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
                         <div className="relative flex items-center">
                             <div className="flex items-center gap-3">
                                 <div className="hidden md:flex flex-col items-end">
-                                    <span className="text-sm font-medium text-gray-700">
+                                    <span className="text-md font-medium text-gray-300">
                                         {auth.user.name}
                                     </span>
                                     <span className="text-xs text-gray-500">
@@ -91,7 +91,7 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
                                     href="/logout" 
                                     method="post" 
                                     as="button"
-                                    className="text-sm font-medium text-gray-500 hover:text-gray-700 
+                                    className="text-md font-medium text-gray-200 hover:text-gray-700 
                                     hover:bg-gray-50 px-3 py-2 rounded-md transition-colors duration-150"
                                 >
                                     Logout
@@ -102,7 +102,6 @@ export default function AdminNavbar({ title, breadcrumbs = [] }) {
                 </div>
             </div>
         </nav>
-        <AdminSidebar />
         </>
     );
 }

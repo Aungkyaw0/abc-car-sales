@@ -15,17 +15,16 @@ export default function AdminSidebar() {
         { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
         { name: 'User Management', href: '/admin/users', icon: UsersIcon },
         { name: 'Car Management', href: '/admin/cars', icon: TruckIcon },
-        { name: 'Profile', href: '/admin/profile', icon: UserCircleIcon },
         { name: 'Settings', href: '/admin/settings', icon: Cog6ToothIcon },
     ];
 
     return (
         <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-            <div className="flex flex-col flex-grow bg-blue-900 pt-16 pb-4 overflow-y-auto">
-                <div className="flex items-center flex-shrink-0 px-4 pt-5">
+            <div className="flex flex-col flex-grow bg-indigo-900 pt-16 pb-4 overflow-y-auto">
+                <div className="flex items-center text-center justify-center flex-shrink-0 px-4 p-5">
                     <span className="text-2xl font-bold text-white">ABC Admin</span>
                 </div>
-                <nav className="mt-5 flex-1 flex flex-col divide-y divide-blue-800">
+                <nav className=" flex-1 flex flex-col divide-y divide-blue-800">
                     <div className="px-2 space-y-1">
                         {navigation.map((item) => (
                             <Link

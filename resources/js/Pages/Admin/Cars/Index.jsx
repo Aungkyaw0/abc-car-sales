@@ -22,7 +22,7 @@ export default function CarManagement({ cars }) {
             <Head title="Car Management" />
 
             <div className="bg-white rounded-xl shadow-sm">
-                <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+                <div className="p-6 rounded-xl border-b border-gray-200 bg flex justify-between items-center">
                     <h2 className="text-lg font-medium text-gray-900">All Car Listings</h2>
                     <div className="flex gap-4">
                         <select className="rounded-md border-gray-300">

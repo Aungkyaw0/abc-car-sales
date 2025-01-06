@@ -51,6 +51,110 @@ export default function Edit({ car }) {
                         </div>
 
                         <div>
+                            <label className="block text-sm font-medium text-gray-700">Make</label>
+                            <input
+                                type="text"
+                                value={data.make}
+                                onChange={e => setData('make', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                                placeholder="e.g., Toyota"
+                            />
+                            {errors.make && <p className="mt-1 text-sm text-red-600">{errors.make}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Model</label>
+                            <input
+                                type="text"
+                                value={data.model}
+                                onChange={e => setData('model', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                                placeholder="e.g., Camry"
+                            />
+                            {errors.model && <p className="mt-1 text-sm text-red-600">{errors.model}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Year</label>
+                            <input
+                                type="number"
+                                value={data.year}
+                                onChange={e => setData('year', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                                placeholder="e.g., 2020"
+                            />
+                            {errors.year && <p className="mt-1 text-sm text-red-600">{errors.year}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Price</label>
+                            <input
+                                type="number"
+                                value={data.price}
+                                onChange={e => setData('price', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                                placeholder="e.g., 25000"
+                            />
+                            {errors.price && <p className="mt-1 text-sm text-red-600">{errors.price}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Mileage (km)</label>
+                            <input
+                                type="number"
+                                value={data.mileage}
+                                onChange={e => setData('mileage', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                                placeholder="e.g., 50000"
+                            />
+                            {errors.mileage && <p className="mt-1 text-sm text-red-600">{errors.mileage}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Condition</label>
+                            <select
+                                value={data.condition}
+                                onChange={e => setData('condition', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                            >
+                                <option value="">Select Condition</option>
+                                <option value="new">New</option>
+                                <option value="used">Used</option>
+                            </select>
+                            {errors.condition && <p className="mt-1 text-sm text-red-600">{errors.condition}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Transmission</label>
+                            <select
+                                value={data.transmission}
+                                onChange={e => setData('transmission', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                            >
+                                <option value="">Select Transmission</option>
+                                <option value="automatic">Automatic</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                            {errors.transmission && <p className="mt-1 text-sm text-red-600">{errors.transmission}</p>}
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Fuel Type</label>
+                            <select
+                                value={data.fuel_type}
+                                onChange={e => setData('fuel_type', e.target.value)}
+                                className="mt-1 block w-full rounded-md border-gray-300"
+                            >
+                                <option value="">Select Fuel Type</option>
+                                <option value="petrol">Petrol</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="hybrid">Hybrid</option>
+                                <option value="electric">Electric</option>
+                            </select>
+                            {errors.fuel_type && <p className="mt-1 text-sm text-red-600">{errors.fuel_type}</p>}
+                        </div>
+
+                        <div>
                             <label className="block text-sm font-medium text-gray-700">Status</label>
                             <select
                                 value={data.status}
@@ -61,9 +165,20 @@ export default function Edit({ car }) {
                                 <option value="sold">Sold</option>
                                 <option value="pending">Pending</option>
                             </select>
+                            {errors.status && <p className="mt-1 text-sm text-red-600">{errors.status}</p>}
                         </div>
+                    </div>
 
-                        {/* Add other fields similar to AddCar.jsx */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea
+                            value={data.description}
+                            onChange={e => setData('description', e.target.value)}
+                            rows={4}
+                            className="mt-1 block w-full rounded-md border-gray-300"
+                            placeholder="Enter car description..."
+                        />
+                        {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
                     </div>
 
                     {/* Features Section */}

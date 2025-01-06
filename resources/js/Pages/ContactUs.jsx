@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import NavigationBar from '../Components/NavigationBar';
 import { Link } from '@inertiajs/react';
 
@@ -11,36 +12,69 @@ export default function ContactUs() {
         message: ''
     });
 
+    // Animation variants
+    const fadeInUp = {
+        initial: { opacity: 0, y: 30 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.5 }
+    };
+
+    const staggerChildren = {
+        animate: {
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Handle form submission logic here
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
-
+        <div className="min-h-screen bg-gray-100">
             {/* Hero Section */}
             <section className="relative pt-20">
-                <div className="absolute inset-0 h-[300px] bg-[url('/images/contact-hero.png')] bg-cover bg-center">
+                <div className="absolute inset-0 h-[350px] bg-[url('/images/contact-hero.png')] bg-cover bg-center">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-black/70"></div>
                 </div>
-                <div className="relative max-w-7xl mx-auto my-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center">
+                <motion.div 
+                    className="relative max-w-7xl mx-auto my-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center"
+                    variants={fadeInUp}
+                    initial="initial"
+                    animate="animate"
+                >
                     <h1 className="text-4xl font-bold text-white">Contact Us</h1>
                     <p className="text-xl text-gray-100 max-w-3xl mx-auto">
                         We're here to help and answer any questions you might have
                     </p>
-                </div>
+                </motion.div>
             </section>
 
             {/* Contact Section */}
-            <section className="relative -mt-10">
+            <section className="relative pt-10 -mt-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Contact Information Cards */}
-                        <div className="col-span-1">
-                            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <motion.div 
+                            className="col-span-1"
+                            variants={staggerChildren}
+                            initial="initial"
+                            animate="animate"
+                        >
+                            <motion.div 
+                                className="bg-white rounded-xl shadow-lg overflow-hidden"
+                                variants={fadeInUp}
+                                whileHover={{ y: -5 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {/* Contact info cards with hover animation */}
                                 {/* Visit Us */}
-                                <div className="p-6 border-b border-gray-100">
+                                <motion.div 
+                                    className="p-6 border-b border-gray-100"
+                                    whileHover={{ backgroundColor: '#f8fafc' }}
+                                >
                                     <div className="flex items-center mb-4">
                                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                             <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,13 +84,16 @@ export default function ContactUs() {
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-semibold text-gray-900">Visit Us</h3>
-                                            <p className="text-gray-600">123 Car Street, Singapore 123456</p>
+                                            <p className="text-gray-600">123 Car Street, Yangon, Kamayut Township</p>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Call Us */}
-                                <div className="p-6 border-b border-gray-100">
+                                <motion.div 
+                                    className="p-6 border-b border-gray-100"
+                                    whileHover={{ backgroundColor: '#f8fafc' }}
+                                >
                                     <div className="flex items-center mb-4">
                                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                             <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,13 +102,16 @@ export default function ContactUs() {
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-semibold text-gray-900">Call Us</h3>
-                                            <p className="text-gray-600">(65) 1234-5678</p>
+                                            <p className="text-gray-600">(95) 1234-5678</p>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Email Us */}
-                                <div className="p-6">
+                                <motion.div 
+                                    className="p-6"
+                                    whileHover={{ backgroundColor: '#f8fafc' }}
+                                >
                                     <div className="flex items-center mb-4">
                                         <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                                             <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,11 +123,16 @@ export default function ContactUs() {
                                             <p className="text-gray-600">info@abccarsales.com</p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </motion.div>
+                            </motion.div>
 
                             {/* Business Hours */}
-                            <div className="mt-8 bg-white rounded-xl shadow-lg p-6">
+                            <motion.div 
+                                className="mt-8 bg-white rounded-xl shadow-lg p-6"
+                                variants={fadeInUp}
+                                whileHover={{ y: -5 }}
+                                transition={{ duration: 0.3 }}
+                            >
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Business Hours</h3>
                                 <div className="space-y-3">
                                     <div className="flex justify-between">
@@ -103,15 +148,27 @@ export default function ContactUs() {
                                         <span className="text-gray-900 font-medium">Closed</span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
 
                         {/* Contact Form */}
-                        <div className="col-span-2">
-                            <div className="bg-white rounded-xl shadow-lg p-8">
+                        <motion.div 
+                            className="col-span-2"
+                            variants={fadeInUp}
+                            initial="initial"
+                            animate="animate"
+                        >
+                            <motion.div 
+                                className="bg-white rounded-xl shadow-lg p-8"
+                                whileHover={{ y: -5 }}
+                                transition={{ duration: 0.3 }}
+                            >
                                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
                                 <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <motion.div 
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                        variants={staggerChildren}
+                                    >
                                         <div>
                                             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                                                 Full Name
@@ -140,9 +197,12 @@ export default function ContactUs() {
                                                 required
                                             />
                                         </div>
-                                    </div>
+                                    </motion.div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <motion.div 
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                                        variants={staggerChildren}
+                                    >
                                         <div>
                                             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                                                 Phone Number
@@ -170,7 +230,7 @@ export default function ContactUs() {
                                                 required
                                             />
                                         </div>
-                                    </div>
+                                    </motion.div>
 
                                     <div>
                                         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
@@ -187,27 +247,37 @@ export default function ContactUs() {
                                         ></textarea>
                                     </div>
 
-                                    <div>
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 
-                                            transition-colors duration-200 font-medium focus:outline-none focus:ring-2 
-                                            focus:ring-offset-2 focus:ring-blue-500"
-                                        >
-                                            Send Message
-                                        </button>
-                                    </div>
+                                    <motion.button
+                                        type="submit"
+                                        className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 
+                                        transition-colors duration-200 font-medium focus:outline-none focus:ring-2 
+                                        focus:ring-offset-2 focus:ring-blue-500"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        Send Message
+                                    </motion.button>
                                 </form>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
             {/* Map Section */}
-            <section className="py-20">
+            <motion.section 
+                className="py-20"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <motion.div 
+                        className="bg-white rounded-xl shadow-lg overflow-hidden"
+                        whileHover={{ y: -5 }}
+                        transition={{ duration: 0.3 }}
+                    >
                         <div className="aspect-w-16 aspect-h-9">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7258670338497!2d103.8516!3d1.2839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTcnMDIuMCJOIDEwM8KwNTEnMDUuOCJF!5e0!3m2!1sen!2ssg!4v1234567890!5m2!1sen!2ssg"
@@ -220,9 +290,9 @@ export default function ContactUs() {
                                 className="w-full h-full"
                             ></iframe>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 }
