@@ -14,7 +14,7 @@ function Home({ featuredCars }) {
             {/* Hero Section */}
             <section className="relative pt-20">
                 {/* Background Image with Overlay */}
-                <div className="absolute inset-0 h-[600px] bg-[url('/images/hero-car.png')] bg-cover bg-top">
+                <div className="absolute inset-0 h-[650px] bg-[url('/images/hero-car.png')] bg-cover bg-top">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-black/70"></div>
                 </div>
 
@@ -48,7 +48,7 @@ function Home({ featuredCars }) {
                 </div>
 
                 {/* Search Section */}
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10">
                     <div className="bg-white rounded-xl shadow-xl p-6">
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <select className="form-select rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500">
@@ -74,8 +74,8 @@ function Home({ featuredCars }) {
             {/* Featured Cars Section */}
             <FeaturedCars cars={featuredCars} />
             {/* Why Choose Us Section */}
-            <WhyChooseUs />
             <HowItWorks />
+            <WhyChooseUs />
 
             
 

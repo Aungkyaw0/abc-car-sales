@@ -10,6 +10,7 @@ use App\Models\Feature;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CarController extends Controller
 {
@@ -110,44 +111,66 @@ class CarController extends Controller
 
     public function index(Request $request)
     {
-        $query = Car::with(['images' => function($q) {
-            $q->where('is_primary', true);
-        }])
-        ->where('status', 'active');
+        $query = Car::query()
+            ->with(['images', 'user'])
+            ->where('status', 'active');
 
-        // Apply filters
-        if ($request->make) {
+        // Filter by make - Move this before other filters
+        if ($request->filled('make')) {
             $query->where('make', $request->make);
         }
+
+        // Search by title, make, or model
+        if ($request->search) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('make', 'like', '%' . $request->search . '%')
+                    ->orWhere('model', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter by model
         if ($request->model) {
             $query->where('model', $request->model);
         }
+
+        // Filter by price range
         if ($request->min_price) {
             $query->where('price', '>=', $request->min_price);
         }
         if ($request->max_price) {
             $query->where('price', '<=', $request->max_price);
         }
+
+        // Filter by year range
         if ($request->min_year) {
             $query->where('year', '>=', $request->min_year);
         }
         if ($request->max_year) {
             $query->where('year', '<=', $request->max_year);
         }
-        if ($request->transmission) {
-            $query->where('transmission', $request->transmission);
-        }
-        if ($request->fuel_type) {
-            $query->where('fuel_type', $request->fuel_type);
-        }
 
-        $cars = $query->latest()->paginate(12);
-        $makes = Car::distinct()->pluck('make');
+        $cars = $query->latest()->paginate(9)->withQueryString();
+        
+        // Add debug logging
+        Log::info('Filter request:', [
+            'make' => $request->make,
+            'query' => $query->toSql(),
+            'bindings' => $query->getBindings()
+        ]);
 
         return Inertia::render('Cars/Index', [
             'cars' => $cars,
-            'filters' => $request->all(),
-            'makes' => $makes
+            'filters' => $request->only([
+                'search', 'make', 'model', 
+                'min_price', 'max_price', 
+                'min_year', 'max_year'
+            ]),
+            'makes' => Car::distinct()->pluck('make'),
+            'debug' => [
+                'currentMake' => $request->make,
+                'totalCars' => $cars->total()
+            ]
         ]);
     }
 

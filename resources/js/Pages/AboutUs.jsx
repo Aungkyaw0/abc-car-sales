@@ -4,10 +4,10 @@ import { Link } from '@inertiajs/react';
 
 export default function AboutUs() {
     return (
-        <div className="min-h-screen bg-gray-50 pt-10">
+        <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
             <section className="relative pt-20">
-                <div className="absolute inset-0 h-[400px] bg-[url('/images/about-hero.png')] bg-cover bg-center">
+                <div className="absolute inset-0 h-[400px] bg-[url('/images/about-hero.png')] bg-cover bg-top">
                     <div className="absolute inset-0 bg-blue-900/80"></div>
                 </div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center">

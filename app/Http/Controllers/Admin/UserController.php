@@ -14,7 +14,7 @@ class UserController extends Controller
         return Inertia::render('Admin/Users/Index', [
             'users' => User::query()
                 ->latest()
-                ->paginate(10)
+                ->paginate(7)
                 ->through(fn ($user) => [
                     'id' => $user->id,
                     'name' => $user->name,
@@ -25,6 +25,7 @@ class UserController extends Controller
                     'created_at' => $user->created_at,
                     'email_verified_at' => $user->email_verified_at
                 ])
+                ->withQueryString()
         ]);
     }
 

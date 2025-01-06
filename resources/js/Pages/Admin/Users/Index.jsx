@@ -4,6 +4,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { formatDate } from '@/utils/format';
 import DeleteConfirmationModal from '@/Components/DeleteConfirmationModal';
 import UserDetailsModal from '@/Components/Admin/UserDetailsModal';
+import Pagination from '@/Components/Pagination';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
 export default function UserManagement({ users }) {
@@ -107,6 +108,11 @@ export default function UserManagement({ users }) {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="px-6 py-4 border-t border-gray-200">
+                    <Pagination links={users.links} />
+                    {console.log(users.links)}
                 </div>
             </div>
 
