@@ -115,6 +115,14 @@ class CarController extends Controller
             ->with(['images', 'user'])
             ->where('status', 'active');
 
+        // Get models for selected make
+        $models = collect();
+        if ($request->filled('make')) {
+            $models = Car::where('make', $request->make)
+                ->distinct()
+                ->pluck('model');
+        }
+
         // Filter by make - Move this before other filters
         if ($request->filled('make')) {
             $query->where('make', $request->make);
@@ -167,6 +175,7 @@ class CarController extends Controller
                 'min_year', 'max_year'
             ]),
             'makes' => Car::distinct()->pluck('make'),
+            'models' => $models,
             'debug' => [
                 'currentMake' => $request->make,
                 'totalCars' => $cars->total()

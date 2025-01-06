@@ -6,7 +6,7 @@ import Breadcrumb from '@/Components/Breadcrumb';
 import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import debounce from 'lodash/debounce';
 
-export default function Index({ cars, filters, makes }) {
+export default function Index({ cars, filters, makes, models }) {
     const { data, setData, get, processing } = useForm({
         search: filters.search || '',
         make: filters.make || '',
@@ -32,15 +32,17 @@ export default function Index({ cars, filters, makes }) {
     const handleFilter = (e) => {
         const { name, value } = e.target;
 
-        // First update the local state
         setData(prevData => {
             const updatedData = {
                 ...prevData,
                 [name]: value
             };
 
-            // Then immediately make the API call with the updated data
             if (name === 'make') {
+                updatedData.model = '';
+            }
+
+            if (name === 'make' || name === 'model') {
                 router.get('/car/lists', updatedData, {
                     preserveState: true,
                     preserveScroll: true,
@@ -51,6 +53,10 @@ export default function Index({ cars, filters, makes }) {
             return updatedData;
         });
     };
+
+    console.log(models);
+    console.log(makes);
+
 
     const breadcrumbItems = [
         { name: 'Browse Cars' }
@@ -113,7 +119,9 @@ export default function Index({ cars, filters, makes }) {
                                 className="form-select rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                             >
                                 <option value="">Select Model</option>
-                                {/* Add models based on selected make */}
+                                {models.map(model => (
+                                    <option key={model} value={model}>{model}</option>
+                                ))}
                             </select>
 
                             <div className="flex gap-2">
@@ -193,7 +201,9 @@ export default function Index({ cars, filters, makes }) {
                                             className="w-full rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                         >
                                             <option value="">All Models</option>
-                                            {/* Add models based on selected make */}
+                                            {models.map(model => (
+                                                <option key={model} value={model}>{model}</option>
+                                            ))}
                                         </select>
                                     </div>
 
