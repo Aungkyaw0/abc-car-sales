@@ -21,12 +21,21 @@ export default function Index({ cars, filters, makes, models }) {
 
     const debouncedSearch = useCallback(
         debounce((query) => {
-            get('/car/lists', {
+            router.get('/car/lists', {
+                search: query,
+                make: data.make,
+                model: data.model,
+                min_price: data.min_price,
+                max_price: data.max_price,
+                min_year: data.min_year,
+                max_year: data.max_year,
+            }, {
                 preserveState: true,
                 preserveScroll: true,
+                replace: true,
             });
         }, 300),
-        []
+        [data]
     );
 
     const handleFilter = (e) => {
@@ -42,7 +51,9 @@ export default function Index({ cars, filters, makes, models }) {
                 updatedData.model = '';
             }
 
-            if (['make', 'model', 'min_price', 'max_price'].includes(name)) {
+            if (name === 'search') {
+                debouncedSearch(value);
+            } else if (['make', 'model', 'min_price', 'max_price', 'min_year', 'max_year'].includes(name)) {
                 router.get('/car/lists', updatedData, {
                     preserveState: true,
                     preserveScroll: true,
@@ -154,7 +165,7 @@ export default function Index({ cars, filters, makes, models }) {
                 </div> */}
 
                 {/* Filter and Cars Grid */}
-                <div className="max-w-max mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     <div className="flex flex-col lg:flex-row gap-8">
                         {/* Filters Sidebar */}
