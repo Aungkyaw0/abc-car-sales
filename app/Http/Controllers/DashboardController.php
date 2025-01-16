@@ -77,6 +77,30 @@ class DashboardController extends Controller
         }
     }
 
+    public function myBids()
+    {
+        $user = auth()->user();
+        
+        // Get bids placed by the user
+        $myBidsPlaced = Bid::with(['car.images', 'car.user'])
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        // Get bids received on user's cars
+        $myBidsReceived = Bid::with(['car.images', 'user'])
+            ->whereHas('car', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->latest()
+            ->get();
+
+        return Inertia::render('Dashboard/Bids/Index', [
+            'bidsPlaced' => $myBidsPlaced,
+            'bidsReceived' => $myBidsReceived
+        ]);
+    }
+
     private function calculatePercentageChange($model, $userId)
     {
         $currentCount = $model::where('user_id', $userId)

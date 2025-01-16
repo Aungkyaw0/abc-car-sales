@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 
 class BidController extends Controller
@@ -77,5 +78,29 @@ class BidController extends Controller
         $this->authorize('update', $bid->car);
         $bid->update(['status' => 'rejected']);
         return back()->with('success', 'Bid was rejected successfully!');
+    }
+
+    public function index()
+    {
+        $user = auth()->user();
+        
+        // Get bids placed by the user
+        $bidsPlaced = Bid::with(['car.images', 'car.user'])
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        // Get bids received on user's cars
+        $bidsReceived = Bid::with(['car.images', 'user'])
+            ->whereHas('car', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->latest()
+            ->get();
+
+        return Inertia::render('Dashboard/Bids/Index', [
+            'bidsPlaced' => $bidsPlaced,
+            'bidsReceived' => $bidsReceived
+        ]);
     }
 } 
