@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AppointmentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -56,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])
         ->name('cars.destroy');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    // Appointment routes
+    Route::get('/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::post('/cars/{car}/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 });
 
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');
@@ -98,3 +102,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    // Existing routes...
+    
+    // Appointment Routes
+        Route::get('dashboard/appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+        Route::put('/appointments/{appointment}/status', [AppointmentController::class, 'updateStatus'])
+        ->name('appointments.update-status');
+    });

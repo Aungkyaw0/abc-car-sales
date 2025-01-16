@@ -11,7 +11,7 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
 
     return (
         <>
-            <nav className="bg-white border-b border-gray-200 fixed z-30 w-full">
+            <nav className="bg-slate-100 border-b border-gray-200 z-10 ps-11 w-full shadow-lg ">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Breadcrumb */}
@@ -44,7 +44,7 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
                         </div>
 
                         {/* User Menu */}
-                        <Menu as="div" className="relative ml-3 mr-60">
+                        <Menu as="div" className="relative">
                             <Menu.Button as="button" className="flex items-center space-x-3 hover:bg-gray-50 rounded-full py-2 px-3">
                                 <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-200">
                                     {auth.user.profile_image ? (

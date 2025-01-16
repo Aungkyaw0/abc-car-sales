@@ -8,12 +8,13 @@ import BidSection from '@/Components/BidSection';
 import BidManagement from '@/Components/BidManagement';
 import { Toaster } from 'react-hot-toast';
 import LiveAnnouncer from '@/Components/LiveAnnouncer';
+import AppointmentBooking from '@/Components/Cars/AppointmentBooking';
 
 export default function Show({ car, seller, similarCars, auth }) {
     const [activeImage, setActiveImage] = useState(car.images[0]?.image_path);
 
     const breadcrumbItems = [
-        { name: 'Cars', href: '/car/lists' },
+        { name: 'Cars', href: '/cars' },
         { name: car.title }
     ];
 
@@ -86,22 +87,6 @@ export default function Show({ car, seller, similarCars, auth }) {
                                 </p>
                             </div>
 
-                            {auth.user?.id === car.user_id && (
-                                <MemoizedBidManagement 
-                                    car={car} 
-                                    initialBids={car.bids || []}
-                                />
-                            )}
-
-                            {/* Add BidSection component */}
-                            {auth.user && auth.user.id !== car.user_id && (
-                                <MemoizedBidSection 
-                                    car={car}
-                                    currentHighestBid={car.highest_bid}
-                                    userBids={car.bids}
-                                />
-                            )}
-
                             {/* Specifications Cards */}
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 <div className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -160,6 +145,25 @@ export default function Show({ car, seller, similarCars, auth }) {
                                 </div>
                             </div>
 
+                            {auth.user?.id === car.user_id && (
+                                <MemoizedBidManagement 
+                                    car={car} 
+                                    initialBids={car.bids || []}
+                                />
+                            )}
+
+                            {/* Add BidSection component */}
+                            {auth.user && auth.user.id !== car.user_id && (
+                                <MemoizedBidSection 
+                                    car={car}
+                                    currentHighestBid={car.highest_bid}
+                                    userBids={car.bids}
+                                />
+                            )}
+                            
+
+                            
+
                             
                             
 
@@ -191,6 +195,11 @@ export default function Show({ car, seller, similarCars, auth }) {
                                     </button>
                                 </div>
                             </div>
+
+                            {/* Appointment Booking Section */}
+
+                            <AppointmentBooking carId={car.id} />
+                        
                         </div>
                     </div>
 

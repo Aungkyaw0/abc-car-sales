@@ -114,3 +114,5 @@ export default function Index({ bidsPlaced, bidsReceived }) {
         </DashboardLayout>
     );
 } 
+
+Index.layout = page => page; 
