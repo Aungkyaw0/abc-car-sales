@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard.cars.update');
         Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])
         ->name('cars.destroy');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::get('/cars/{car}', [CarController::class, 'show'])->name('cars.show');

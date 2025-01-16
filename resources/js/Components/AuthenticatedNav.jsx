@@ -80,6 +80,12 @@ export default function AuthenticatedNav() {
                         </Link>
                         <Menu as="div" className="relative ml-3">
                             <Menu.Button className="flex items-center space-x-3 focus:outline-none">
+                            <Link 
+                                href="/dashboard" 
+                                className={` flex flex-row gap-2 justify-center items-center transition-colors duration-200 ${
+                                    scrolled ? 'text-gray-600 hover:text-primary' : 'text-white hover:text-primary'
+                                } font-medium`}
+                            >
                                 <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white">
                                     {auth.user.profile_image ? (
                                         <img 
@@ -97,51 +103,18 @@ export default function AuthenticatedNav() {
 
                                     {/* {console.log(auth.user)} */}
                                 </div>
-                                <span className={`font-medium ${
+                                <div className={`font-medium ${
                                     scrolled ? 'text-gray-700' : 'text-white'
                                 }`}>
+                                    
                                     {auth.user.name}
-                                </span>
+                                </div>
+
+                            </Link>
+                                
                             </Menu.Button>
 
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
-                            >
-                                <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <Link
-                                                href="/profile"
-                                                className={`${
-                                                    active ? 'bg-gray-100' : ''
-                                                } block px-4 py-2 text-sm text-gray-700`}
-                                            >
-                                                Your Profile
-                                            </Link>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <Link
-                                                href="/logout"
-                                                method="post"
-                                                as="button"
-                                                className={`${
-                                                    active ? 'bg-gray-100' : ''
-                                                } block w-full text-left px-4 py-2 text-sm text-red-600`}
-                                            >
-                                                Logout
-                                            </Link>
-                                        )}
-                                    </Menu.Item>
-                                </Menu.Items>
-                            </Transition>
+                            
                         </Menu>
                     </div>
 

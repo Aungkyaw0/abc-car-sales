@@ -5,6 +5,7 @@ import DashboardNavbar from '@/Components/Dashboard/DashboardNavbar';
 import FlashMessage from '@/Components/FlashMessage';
 
 export default function DashboardLayout({ children, title, breadcrumbs = [] }) {
+    const { auth } = usePage().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const defaultBreadcrumbs = [
         { name: 'Dashboard', href: '/dashboard' },
@@ -33,7 +34,6 @@ export default function DashboardLayout({ children, title, breadcrumbs = [] }) {
             <div className="lg:pl-64 flex flex-col min-h-screen">
                 {/* Navbar */}
                 <DashboardNavbar 
-                    user={usePage().props.auth.user}
                     breadcrumbs={defaultBreadcrumbs}
                     onMenuClick={() => setSidebarOpen(true)}
                     className="fixed top-0 right-0 left-0 lg:left-64"
