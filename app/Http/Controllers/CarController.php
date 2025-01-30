@@ -47,8 +47,23 @@ class CarController extends Controller
             'transmission' => 'required|string|in:automatic,manual',
             'fuel_type' => 'required|string|in:petrol,diesel,electric,hybrid',
             'description' => 'required|string',
-            'images' => 'required|array|min:1|max:4',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'max:4',
+            'images.*' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif',
+                'max:2048',
+                function ($attribute, $value, $fail) {
+                    if (!in_array($value->getMimeType(), [
+                        'image/jpeg',
+                        'image/png',
+                        'image/jpg',
+                        'image/gif'
+                    ])) {
+                        $fail('The file must be a valid image (JPG, JPEG, PNG, GIF).');
+                    }
+                },
+            ],
             'features' => 'array'
         ]);
 

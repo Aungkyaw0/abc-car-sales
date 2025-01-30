@@ -4,6 +4,8 @@ export default function ImageUpload({ onImagesSelected, error }) {
     const [previews, setPreviews] = useState([]);
     const [localError, setLocalError] = useState('');
     const MAX_IMAGES = 4;
+    const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
@@ -12,6 +14,19 @@ export default function ImageUpload({ onImagesSelected, error }) {
         if (files.length > MAX_IMAGES) {
             setLocalError(`You can only upload up to ${MAX_IMAGES} images`);
             return;
+        }
+
+        // Validate each file
+        for (const file of files) {
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                setLocalError('Invalid file type. Only JPG, JPEG, PNG and GIF are allowed');
+                return;
+            }
+            
+            if (file.size > MAX_FILE_SIZE) {
+                setLocalError('File size too large. Maximum size is 2MB');
+                return;
+            }
         }
 
         // Clear any previous error

@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;    
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-
+use App\Traits\HandleLoginAttempts;
 class AuthController extends Controller
 {
+    use HandleLoginAttempts;
     public function showRegister()
     {
         return Inertia::render('Auth/Register');
@@ -51,11 +52,25 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($this->isLockedOut($user)) {
+            $remainingTime = now()->diffInMinutes($user->locked_until);
+            return back()->withErrors([
+                'email' => "Account is locked. Please try again in {$remainingTime} minutes."
+            ]);
+        }
+
         if (Auth::attempt($credentials)) {
+            $this->resetLoginAttempts($user);
             $request->session()->regenerate();
 
             return redirect()->intended('/')
                 ->with('success', 'Welcome back!');
+        }
+
+        if ($user) {
+            $this->incrementLoginAttempts($user);
         }
 
         return back()->withErrors([

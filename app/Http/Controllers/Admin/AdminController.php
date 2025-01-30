@@ -9,9 +9,12 @@ use App\Models\User;
 use App\Models\Car;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Traits\HandleLoginAttempts;
 
 class AdminController extends Controller
 {
+    use HandleLoginAttempts;
+
     public function loginForm()
     {
         return Inertia::render('Admin/Login');
@@ -63,6 +66,15 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($this->isLockedOut($user)) {
+            $remainingTime = now()->diffInMinutes($user->locked_until);
+            return back()->withErrors([
+                'email' => "Account is locked. Please try again in {$remainingTime} minutes."
+            ]);
+        }
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             
@@ -73,8 +85,13 @@ class AdminController extends Controller
                 ]);
             }
 
+            $this->resetLoginAttempts($user);
             $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
+        }
+
+        if ($user) {
+            $this->incrementLoginAttempts($user);
         }
 
         return back()->withErrors([
