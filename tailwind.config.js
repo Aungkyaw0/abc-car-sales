@@ -9,6 +9,12 @@ export default {
       ],
     theme: {
         extend: {
+            screens: {
+                sm: '480px',
+                md: '768px',
+                lg: '976px',
+                xl: '1440px',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
@@ -18,6 +24,11 @@ export default {
                     dark: '#2563EB',    // Blue-600
                     light: '#60A5FA',   // Blue-400
                 },
+                dashboard: {
+                    dark: '#181824',
+                    green: '#38CE3C',
+                    
+                }
             },
         },
     },

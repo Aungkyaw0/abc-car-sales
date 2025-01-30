@@ -6,7 +6,7 @@ import {
     UserGroupIcon,
     CalendarIcon,
     ChartBarIcon,
-    CogIcon,
+    CalendarDateRangeIcon,
     PlusCircleIcon,
     CheckCircleIcon,
     ListBulletIcon
@@ -28,26 +28,27 @@ export default function Sidebar() {
                 { name: 'My Car Listings', href: '/dashboard/cars/my-listings', icon: ListBulletIcon },
                 { name: 'Add New Car', href: '/cars/create', icon: PlusCircleIcon },
                 { name: 'Sold Cars', href: '/dashboard/cars/sold', icon: CheckCircleIcon },
-                { name: 'Bids', href: '/dashboard/bids' },
+                { name: 'Bids', href: '/dashboard/bids', icon: ChartBarIcon },
             ]
         },
         {
             name: 'Appointments',
             icon: CalendarIcon,
             submenu: [
-                { name: 'Appointments', href: '/dashboard/appointments' },
+                { name: 'Appointments', href: '/dashboard/appointments', icon: CalendarDateRangeIcon },
             ]
         }
         
     ];
 
     return (
-        <div className="h-screen w-72 bg-gray-900 fixed left-0 top-0 flex flex-col">
+        <div className="h-screen w-64 bg-dashboard-dark fixed left-0 top-0 flex flex-col">
             <div className="flex flex-col h-full">
                 <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-                    <div className="flex-shrink-0 px-4">
-                        <Link href="/" className="text-2xl font-bold text-primary">
-                            ABC Cars
+                    <div className="flex-shrink-0 px-6 pb-2">
+                        <Link href="/" className="text-2xl font-bold text-white flex items-center">
+                            <span className="text-blue-500">ABC</span>
+                            <span className="ml-2">Dashboard</span>
                         </Link>
                     </div>
                     <nav className="mt-5 flex-1 px-2 space-y-1">
@@ -55,7 +56,7 @@ export default function Sidebar() {
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`group flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 hover:text-white transition-colors duration-200 ${
+                                className={`group flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-900/50 hover:text-white transition-colors duration-200 ${
                                     isCurrentRoute(item.href)
                                         ? 'bg-gray-800 text-white'
                                         : 'text-gray-300 hover:bg-gray-800 hover:text-white'
@@ -72,17 +73,17 @@ export default function Sidebar() {
                             </Link>
                         ) : (
                             <div key={item.name} className="space-y-1">
-                                <div className="px-3 py-2 text-xs font-semibold text-gray-300 uppercase tracking-wider">
+                                <div className="px-3 py-2 text-xs font-semibold text-dashboard-green uppercase tracking-wider">
                                     {item.name}
                                 </div>
                                 {item.submenu.map((subitem) => (
                                     <Link
                                         key={subitem.name}
                                         href={subitem.href}
-                                        className={`group flex items-center pl-10 pr-2 py-2 text-medium rounded-lg transition-colors duration-200 ${
+                                        className={`group flex items-center pl-3 pr-2 py-2 text-medium rounded-lg transition-colors duration-200 ${
                                             isCurrentRoute(subitem.href.split('?')[0])
                                                 ? 'bg-gray-800 text-white'
-                                                : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                                                : 'text-gray-300 hover:bg-gray-900 hover:text-white'
                                         }`}
                                     >
                                         {subitem.icon && (

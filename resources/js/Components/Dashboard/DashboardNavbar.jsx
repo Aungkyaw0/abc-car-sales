@@ -11,7 +11,7 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
 
     return (
         <>
-            <nav className="bg-slate-100 border-b border-gray-200 z-10 ps-11 w-full shadow-lg ">
+            <nav className="bg-gray-800 border-b border-gray-200 z-10 ps-11 w-full shadow-lg ">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Breadcrumb */}
@@ -21,19 +21,19 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
                                     {breadcrumbs.map((item, index) => (
                                         <li key={index} className="inline-flex items-center">
                                             {index !== 0 && (
-                                                <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                                <svg className="w-6 h-6 text-gray-100" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                                                 </svg>
                                             )}
                                             {item.href ? (
                                                 <Link
                                                     href={item.href}
-                                                    className="text-sm font-medium text-gray-500 hover:text-gray-700"
+                                                    className="text-sm font-medium text-gray-100 hover:text-gray-700"
                                                 >
                                                     {item.name}
                                                 </Link>
                                             ) : (
-                                                <span className="text-sm font-medium text-gray-500">
+                                                <span className="text-sm font-medium text-gray-100">
                                                     {item.name}
                                                 </span>
                                             )}
@@ -45,7 +45,7 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
 
                         {/* User Menu */}
                         <Menu as="div" className="relative">
-                            <Menu.Button as="button" className="flex items-center space-x-3 hover:bg-gray-50 rounded-full py-2 px-3">
+                            <Menu.Button as="button" className="flex items-center space-x-3 hover:bg-gray-700 rounded-full py-2 px-3">
                                 <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-200">
                                     {auth.user.profile_image ? (
                                         <img 
@@ -62,8 +62,8 @@ export default function DashboardNavbar({ breadcrumbs = [] }) {
                                     )}
                                 </div>
                                 <div className="hidden md:flex md:items-center">
-                                    <span className="text-sm font-medium text-gray-700">{auth.user.name}</span>
-                                    <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    <span className="text-sm font-medium text-gray-100">{auth.user.name}</span>
+                                    <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-100" aria-hidden="true" />
                                 </div>
                             </Menu.Button>
 
